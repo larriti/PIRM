@@ -1,0 +1,11 @@
+-I.
+-DUSE_STDPERIPH_DRIVER
+-DSTM32F40_41xxx
+
+-IDrivers/CMSIS/Device/Include
+-IDrivers/CMSIS/Include
+-IUser/Include
+-IDrivers/STM32F4xx_StdPeriph_Driver/inc
+
+-IThirdParty/FreeRTOS/Include
+-IThirdParty/Modbus/include
