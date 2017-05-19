@@ -218,7 +218,7 @@ void AD7606_ReadOneSample(uint8_t Channels)
     }
 }
 
-// 10KHz 定时转换采样
+// 2KHz 定时转换采样
 void AD7606_TIMER_IRQ_HANDLER(void)
 {
     if(TIM_GetITStatus(AD7606_TIMER_DEV, TIM_IT_Update) == SET)

@@ -10,7 +10,7 @@
 #include "queue.h"
 #include "semphr.h"
 
-
+#include "dac.h"
 
 /* Private define ------------------------------------------------------------*/
 #define AD7606_TIMER_DEV            ( TIM4 )
@@ -40,9 +40,10 @@
 #define AD7606_DOUTB                GPIO_Pin_13
 #define AD7606_DOUTA                GPIO_Pin_14
 
-#define BUFFER_COUNTER              2
-#define SAMPLE_NUMBER               1000
-#define AD7606_RANGE                10.0
+#define BUFFER_COUNTER              2                                  //2个缓冲区缓存数据
+#define FILTER_ORDER                20                                 //20阶滤波
+#define SAMPLE_NUMBER               (AD7606_SAMPLE_FREQ/OUT_FREQ)      //每次采一个周期
+#define AD7606_RANGE                10.0                               //AD7606测量范围
 #define AD7606_MAX_NUM              32768.0
 #define AD7606_STANDARD_RES         100.0            // 标准电阻0.1R, 100mR
 #define AD7606_POWER_R18            3.090            // 测电源电压R18电阻为3.09K
@@ -56,11 +57,18 @@ typedef struct {
     float AD7606_CH4;
 } AD7606_CHx_Typedef;
 
+typedef struct {
+    float AD7606_CH1_Vpp[FILTER_ORDER];
+    float AD7606_CH2_Vpp[FILTER_ORDER];
+    float AD7606_CH3_Vpp[FILTER_ORDER];
+}AD7606_CHx_Vpp_Typedef;
+
 /* Private macro -------------------------------------------------------------*/
 /* Exported variables ------------------------------------------------------- */
 extern SemaphoreHandle_t xSemaphore_AD7606_Finished;
 extern SemaphoreHandle_t xSemaphore_AD7606_Busy;
 extern AD7606_CHx_Typedef AD7606_CHx;
+extern AD7606_CHx_Vpp_Typedef AD7606_CHx_Vpp;
 extern uint8_t Buffer_Status;
 
 /* Exported functions ------------------------------------------------------- */

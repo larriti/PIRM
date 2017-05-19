@@ -7,7 +7,7 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
-#define OUT_FREQ          		20.0                               				// Output waveform frequency
+#define OUT_FREQ          		20                               				// Output waveform frequency
 #define OUT_AMP					2000.0											// Output wavefore amplitude(mv)
 #define OUT_OFFSET				(OUT_AMP/2)										// Output offset voltage(mv)
 #define DAC_VREF				3280.0											// DAC VREF voltage(mv)

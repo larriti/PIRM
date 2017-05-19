@@ -47,7 +47,11 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
+#define CONTACT_RES			3			// 接触电阻3mR
+
 /* Private variables ---------------------------------------------------------*/
+AD7606_CHx_Vpp_Typedef AD7606_CHx_Vpp;
+
 /* Private function prototypes -----------------------------------------------*/
 static void vLEDTask(void *pvParameters);
 static void vMBTask(void *pvParameters);
@@ -116,10 +120,10 @@ static void vMBTask( void *pvParameters )
 
 static void vAD7606_Sample_Task(void *pvParameters)
 {
-
 	xSemaphore_AD7606_Busy = xSemaphoreCreateBinary();
 	if ( xSemaphore_AD7606_Busy != NULL )
 	{
+		//初始化要将信号量take
 		xSemaphoreTake(xSemaphore_AD7606_Busy, pdMS_TO_TICKS(1));
 		AD7606_Init();
 		AD7606_StartSample();
@@ -140,12 +144,15 @@ static void vAD7606_Sample_Task(void *pvParameters)
 static void vAD7606_Handle_Task(void *pvParameters)
 {
 	uint16_t i;
-	uint8_t index;
+	uint8_t index = 0;
+	uint8_t Vpp_index = 0;
 	float ch1_min,ch1_max;
 	float ch2_min,ch2_max;
 	float power_res, power_volatage;
+	float ch1_sum, ch1_avg, ch2_sum, ch2_avg;
 
 	xSemaphore_AD7606_Finished = xSemaphoreCreateBinary();
+	//初始化要将信号量take
 	xSemaphoreTake(xSemaphore_AD7606_Finished, pdMS_TO_TICKS(1));
 
 	while(1)
@@ -189,9 +196,39 @@ static void vAD7606_Handle_Task(void *pvParameters)
 					}
 				}
 			}
-			power_res = (ch1_max-ch1_min)/(ch2_max-ch2_min)*AD7606_STANDARD_RES;
-			power_volatage = AD7606_CHx.AD7606_CH4*(AD7606_POWER_R18+AD7606_POWER_R17)/AD7606_POWER_R18;
-			printf("Res=%.3fmR, Vp=%.3fV\r\n", power_res, power_volatage);
+			if(Vpp_index < FILTER_ORDER-1)
+			{
+				AD7606_CHx_Vpp.AD7606_CH1_Vpp[Vpp_index] = ch1_max-ch1_min;
+				AD7606_CHx_Vpp.AD7606_CH2_Vpp[Vpp_index] = ch2_max-ch2_min;
+				Vpp_index++;
+			}
+			else
+			{
+				// 20阶移动平均滤波
+				AD7606_CHx_Vpp.AD7606_CH1_Vpp[Vpp_index] = ch1_max-ch1_min;
+				AD7606_CHx_Vpp.AD7606_CH2_Vpp[Vpp_index] = ch2_max-ch2_min;
+				ch1_sum = 0;
+				ch2_sum = 0;
+				// 求20阶平均值
+				for(i=0; i<FILTER_ORDER; i++)
+				{
+					ch1_sum += AD7606_CHx_Vpp.AD7606_CH1_Vpp[i];
+					ch2_sum += AD7606_CHx_Vpp.AD7606_CH2_Vpp[i];
+				}
+				ch1_avg = ch1_sum/(float)FILTER_ORDER;
+				ch2_avg = ch2_sum/(float)FILTER_ORDER;
+				//数组向前移动一个
+				for(i=1; i<FILTER_ORDER; i++)
+				{
+					AD7606_CHx_Vpp.AD7606_CH1_Vpp[i-1] = AD7606_CHx_Vpp.AD7606_CH1_Vpp[i];
+					AD7606_CHx_Vpp.AD7606_CH2_Vpp[i-1] = AD7606_CHx_Vpp.AD7606_CH2_Vpp[i];
+				}
+				// 计算出电池内组
+				power_res = ch1_avg/ch2_avg*AD7606_STANDARD_RES;
+				// 计算出电池电压
+				power_volatage = AD7606_CHx.AD7606_CH4*(AD7606_POWER_R18+AD7606_POWER_R17)/AD7606_POWER_R18;
+				printf("Res=%.3fmR, Vp=%.3fV\r\n", power_res-CONTACT_RES, power_volatage);
+			}
 		}
 	}
 }
