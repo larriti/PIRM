@@ -20,9 +20,7 @@
 #define REG_HOLDING_NREGS 	8
 
 /* Private variables ---------------------------------------------------------*/
-uint16_t usRegInputStart = REG_INPUT_START;
 extern uint16_t usRegInputBuf[REG_INPUT_NREGS];
-uint16_t usRegHoldingStart = REG_HOLDING_START;
 extern uint16_t usRegHoldingBuf[REG_HOLDING_NREGS];
 
 

@@ -4,11 +4,13 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+uint16_t usRegInputStart = REG_INPUT_START;
+uint16_t usRegHoldingStart = REG_HOLDING_START;
 uint16_t usRegInputBuf[REG_INPUT_NREGS] = {
-    1,2,3,4,5,6,7,8
+    0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000
 };
 uint16_t usRegHoldingBuf[REG_HOLDING_NREGS] = {
-    0x147b,0x3f8e,0x147b,0x400e,0x1eb8,0x4055,0x147b,0x408e
+    0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000
 };
 
 /* Private function prototypes -----------------------------------------------*/

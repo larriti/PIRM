@@ -32,30 +32,28 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
+#include "semphr.h"
 
 /* Modbus Includes -----------------------------------------------------------*/
 #include "mb.h"
 
-/* DAC Includes --------------------------------------------------------------*/
+/* User Includes --------------------------------------------------------------*/
 #include "dac.h"
 #include "usart.h"
 #include "ad7606.h"
+#include "led.h"
+#include "portfunction.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#define LED_PORT            ( GPIOB )
-#define LED_PIN             ( GPIO_Pin_8 )
-#define LED_CLOCK           ( RCC_AHB1Periph_GPIOB )
-
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-
 /* Private function prototypes -----------------------------------------------*/
-static void vLEDInit();
-static void vLEDToggle();
 static void vLEDTask(void *pvParameters);
 static void vMBTask(void *pvParameters);
-static void vAD7606Task(void *pvParameters);
+static void vAD7606_Sample_Task(void *pvParameters);
+static void vAD7606_Handle_Task(void *pvParameters);
+
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -73,9 +71,12 @@ int main(void)
 	USART1_Config();
 
     /* Create led task */
-	xTaskCreate(vAD7606Task, "AD7606 task", 2048, NULL, 3, NULL);
-    xTaskCreate(vLEDTask, "LED task", configMINIMAL_STACK_SIZE, NULL, 2, NULL);
-    xTaskCreate(vMBTask, "Modbus task", configMINIMAL_STACK_SIZE, NULL, 1, NULL);
+	xTaskCreate(vAD7606_Sample_Task, "AD7606 sample task", configMINIMAL_STACK_SIZE, NULL, 1, NULL);
+	xTaskCreate(vLEDTask, "LED task", configMINIMAL_STACK_SIZE, NULL, 2, NULL);
+    xTaskCreate(vMBTask, "Modbus task", configMINIMAL_STACK_SIZE, NULL, 3, NULL);
+	// 因为有printf,所以栈大小要比较大
+	xTaskCreate(vAD7606_Handle_Task, "AD7606 handle task", 256, NULL, 4, NULL);
+
     /* Start task scheduler */
     vTaskStartScheduler();
 
@@ -85,39 +86,12 @@ int main(void)
 	}
 }
 
-void vLEDInit()
-{
-    GPIO_InitTypeDef GPIO_InitStruct;
-    RCC_AHB1PeriphClockCmd(LED_CLOCK, ENABLE);
-
-    GPIO_InitStruct.GPIO_Pin = LED_PIN;
-    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_OUT;
-	GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
-	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
-    GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
-
-    GPIO_Init(LED_PORT, &GPIO_InitStruct);
-    GPIO_SetBits(LED_PORT, LED_PIN);
-}
-
-void vLEDToggle()
-{
-    if(GPIO_ReadOutputDataBit(LED_PORT, LED_PIN) == 0)
-    {
-        GPIO_SetBits(LED_PORT, LED_PIN);
-    }
-    else
-    {
-        GPIO_ResetBits(LED_PORT, LED_PIN);
-    }
-}
-
 static void vLEDTask(void *pvParameters)
 {
-	vLEDInit();
+	LED_Init();
     for( ;; )
     {
-        vLEDToggle();
+        LED_Toggle();
         vTaskDelay(200);
     }
 }
@@ -140,43 +114,85 @@ static void vMBTask( void *pvParameters )
     }
 }
 
-static void vAD7606Task(void *pvParameters)
+static void vAD7606_Sample_Task(void *pvParameters)
 {
-	uint16_t DataA[4];
-	uint16_t DataB[4];
-	int16_t DataA0[1000];
-	int16_t DataA1[1000];
-	float num;
-	uint16_t i;
 
-	AD7606_Init();
+	xSemaphore_AD7606_Busy = xSemaphoreCreateBinary();
+	if ( xSemaphore_AD7606_Busy != NULL )
+	{
+		xSemaphoreTake(xSemaphore_AD7606_Busy, pdMS_TO_TICKS(1));
+		AD7606_Init();
+		AD7606_StartSample();
+	}
 	while(1)
 	{
-		// AD7606_ReadOneSample(DataA, DataB, 4);
-		// num = (int16_t)DataA[3]*10.0/32768.0;
-		// printf("%f\r\n", num);
-		for (i=0; i<1000; i++)
+		if ( xSemaphore_AD7606_Busy != NULL )
 		{
-			AD7606_ReadOneSample(DataA, DataB, 4);
-			DataA0[i] = (int16_t)DataA[0];
-			DataA1[i] = (int16_t)DataA[1];
-			vTaskDelay(1);
+			// 等待AD7606 busy中断发送信号量
+			if (xSemaphoreTake(xSemaphore_AD7606_Busy, portMAX_DELAY) == pdTRUE)
+			{
+				AD7606_ReadOneSample(4);
+			}
 		}
-		printf("----------CH1--------\r\n");
-		for (i=0; i<1000; i++)
-		{
-			num = (int16_t)DataA0[i]*10.0/32768.0;
-			printf("%f\r\n", num);
-		}
-		printf("----------CH2--------\r\n");
-		for (i=0; i<1000; i++)
-		{
-			num = (int16_t)DataA1[i]*10.0/32768.0;
-			printf("%f\r\n", num);
-		}
-		printf("\r\n");
+	}
+}
 
-		vTaskDelay(10);
+static void vAD7606_Handle_Task(void *pvParameters)
+{
+	uint16_t i;
+	uint8_t index;
+	float ch1_min,ch1_max;
+	float ch2_min,ch2_max;
+	float power_res, power_volatage;
+
+	xSemaphore_AD7606_Finished = xSemaphoreCreateBinary();
+	xSemaphoreTake(xSemaphore_AD7606_Finished, pdMS_TO_TICKS(1));
+
+	while(1)
+	{
+		if(xSemaphoreTake(xSemaphore_AD7606_Finished, portMAX_DELAY) == pdTRUE)
+		{
+			// 如果缓冲区1在存数据则处理缓冲区0的数据,反之
+			if(Buffer_Status)
+				index = 0;
+			else
+				index = 1;
+			ch1_min = 0;ch1_max = 0;ch2_min = 0;ch2_max = 0;
+			for (i = 0; i < SAMPLE_NUMBER; i++)
+			{
+				if (AD7606_CHx.AD7606_CH1[index][i]<0)	// 判断是负电压则找出最小值
+				{
+					if (AD7606_CHx.AD7606_CH1[index][i]<ch1_min)
+					{
+						ch1_min  = AD7606_CHx.AD7606_CH1[index][i];
+					}
+				}
+				else	// 判断是正电压则找出最大值
+				{
+					if (AD7606_CHx.AD7606_CH1[index][i]>ch1_max)
+					{
+						ch1_max  = AD7606_CHx.AD7606_CH1[index][i];
+					}
+				}
+				if (AD7606_CHx.AD7606_CH2[index][i]<0)	// 判断是负电压则找出最小值
+				{
+					if (AD7606_CHx.AD7606_CH2[index][i]<ch2_min)
+					{
+						ch2_min  = AD7606_CHx.AD7606_CH2[index][i];
+					}
+				}
+				else	// 判断是正电压则找出最大值
+				{
+					if (AD7606_CHx.AD7606_CH2[index][i]>ch2_max)
+					{
+						ch2_max  = AD7606_CHx.AD7606_CH2[index][i];
+					}
+				}
+			}
+			power_res = (ch1_max-ch1_min)/(ch2_max-ch2_min)*AD7606_STANDARD_RES;
+			power_volatage = AD7606_CHx.AD7606_CH4*(AD7606_POWER_R18+AD7606_POWER_R17)/AD7606_POWER_R18;
+			printf("Res=%.3fmR, Vp=%.3fV\r\n", power_res, power_volatage);
+		}
 	}
 }
 
