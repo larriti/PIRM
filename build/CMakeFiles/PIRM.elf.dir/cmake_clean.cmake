@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/PIRM.elf.dir/User/Source/ad7606.c.o"
   "CMakeFiles/PIRM.elf.dir/User/Source/dac.c.o"
+  "CMakeFiles/PIRM.elf.dir/User/Source/led.c.o"
   "CMakeFiles/PIRM.elf.dir/User/Source/main.c.o"
   "CMakeFiles/PIRM.elf.dir/User/Source/portevent.c.o"
   "CMakeFiles/PIRM.elf.dir/User/Source/portfunction.c.o"

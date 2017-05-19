@@ -317,6 +317,33 @@ User/Source/dac.c.s:
 	$(MAKE) -f CMakeFiles/PIRM.elf.dir/build.make CMakeFiles/PIRM.elf.dir/User/Source/dac.c.s
 .PHONY : User/Source/dac.c.s
 
+User/Source/led.o: User/Source/led.c.o
+
+.PHONY : User/Source/led.o
+
+# target to build an object file
+User/Source/led.c.o:
+	$(MAKE) -f CMakeFiles/PIRM.elf.dir/build.make CMakeFiles/PIRM.elf.dir/User/Source/led.c.o
+.PHONY : User/Source/led.c.o
+
+User/Source/led.i: User/Source/led.c.i
+
+.PHONY : User/Source/led.i
+
+# target to preprocess a source file
+User/Source/led.c.i:
+	$(MAKE) -f CMakeFiles/PIRM.elf.dir/build.make CMakeFiles/PIRM.elf.dir/User/Source/led.c.i
+.PHONY : User/Source/led.c.i
+
+User/Source/led.s: User/Source/led.c.s
+
+.PHONY : User/Source/led.s
+
+# target to generate assembly for a file
+User/Source/led.c.s:
+	$(MAKE) -f CMakeFiles/PIRM.elf.dir/build.make CMakeFiles/PIRM.elf.dir/User/Source/led.c.s
+.PHONY : User/Source/led.c.s
+
 User/Source/main.o: User/Source/main.c.o
 
 .PHONY : User/Source/main.o
@@ -533,6 +560,9 @@ help:
 	@echo "... User/Source/dac.o"
 	@echo "... User/Source/dac.i"
 	@echo "... User/Source/dac.s"
+	@echo "... User/Source/led.o"
+	@echo "... User/Source/led.i"
+	@echo "... User/Source/led.s"
 	@echo "... User/Source/main.o"
 	@echo "... User/Source/main.i"
 	@echo "... User/Source/main.s"

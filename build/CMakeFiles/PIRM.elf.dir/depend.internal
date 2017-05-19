@@ -101,6 +101,7 @@ CMakeFiles/PIRM.elf.dir/User/Source/ad7606.c.o
  ../ThirdParty/FreeRTOS/Include/portmacro.h
  ../ThirdParty/FreeRTOS/Include/projdefs.h
  ../ThirdParty/FreeRTOS/Include/queue.h
+ ../ThirdParty/FreeRTOS/Include/semphr.h
  ../ThirdParty/FreeRTOS/Include/task.h
  ../User/Include/ad7606.h
  /home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/User/Source/ad7606.c
@@ -150,6 +151,63 @@ CMakeFiles/PIRM.elf.dir/User/Source/dac.c.o
  ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_wwdg.h
  ../User/Include/dac.h
  /home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/User/Source/dac.c
+CMakeFiles/PIRM.elf.dir/User/Source/led.c.o
+ ../Drivers/CMSIS/Device/Include/stm32f4xx.h
+ ../Drivers/CMSIS/Device/Include/stm32f4xx_conf.h
+ ../Drivers/CMSIS/Device/Include/system_stm32f4xx.h
+ ../Drivers/CMSIS/Include/core_cm4.h
+ ../Drivers/CMSIS/Include/core_cmFunc.h
+ ../Drivers/CMSIS/Include/core_cmInstr.h
+ ../Drivers/CMSIS/Include/core_cmSimd.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/misc.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_adc.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_can.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_cec.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_crc.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_cryp.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_dac.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_dbgmcu.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_dcmi.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_dma.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_dma2d.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_dsi.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_exti.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_flash.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_flash_ramfunc.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_fmpi2c.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_fsmc.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_gpio.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_hash.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_i2c.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_iwdg.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_lptim.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_ltdc.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_pwr.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_qspi.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_rcc.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_rng.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_rtc.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_sai.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_sdio.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_spdifrx.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_spi.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_syscfg.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_tim.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_usart.h
+ ../Drivers/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_wwdg.h
+ ../ThirdParty/FreeRTOS/Include/FreeRTOS.h
+ ../ThirdParty/FreeRTOS/Include/FreeRTOSConfig.h
+ ../ThirdParty/FreeRTOS/Include/deprecated_definitions.h
+ ../ThirdParty/FreeRTOS/Include/list.h
+ ../ThirdParty/FreeRTOS/Include/mpu_wrappers.h
+ ../ThirdParty/FreeRTOS/Include/portable.h
+ ../ThirdParty/FreeRTOS/Include/portmacro.h
+ ../ThirdParty/FreeRTOS/Include/projdefs.h
+ ../ThirdParty/FreeRTOS/Include/queue.h
+ ../ThirdParty/FreeRTOS/Include/semphr.h
+ ../ThirdParty/FreeRTOS/Include/task.h
+ ../User/Include/led.h
+ /home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/User/Source/led.c
 CMakeFiles/PIRM.elf.dir/User/Source/main.c.o
  ../Drivers/CMSIS/Device/Include/stm32f4xx.h
  ../Drivers/CMSIS/Device/Include/stm32f4xx_conf.h
@@ -203,14 +261,17 @@ CMakeFiles/PIRM.elf.dir/User/Source/main.c.o
  ../ThirdParty/FreeRTOS/Include/portmacro.h
  ../ThirdParty/FreeRTOS/Include/projdefs.h
  ../ThirdParty/FreeRTOS/Include/queue.h
+ ../ThirdParty/FreeRTOS/Include/semphr.h
  ../ThirdParty/FreeRTOS/Include/task.h
  ../ThirdParty/Modbus/include/mb.h
  ../ThirdParty/Modbus/include/mbport.h
  ../ThirdParty/Modbus/include/mbproto.h
  ../User/Include/ad7606.h
  ../User/Include/dac.h
+ ../User/Include/led.h
  ../User/Include/main.h
  ../User/Include/port.h
+ ../User/Include/portfunction.h
  ../User/Include/usart.h
  /home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/User/Source/main.c
 CMakeFiles/PIRM.elf.dir/User/Source/portevent.c.o

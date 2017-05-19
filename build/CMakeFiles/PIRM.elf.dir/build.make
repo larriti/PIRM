@@ -105,9 +105,33 @@ CMakeFiles/PIRM.elf.dir/User/Source/dac.c.o.provides: CMakeFiles/PIRM.elf.dir/Us
 CMakeFiles/PIRM.elf.dir/User/Source/dac.c.o.provides.build: CMakeFiles/PIRM.elf.dir/User/Source/dac.c.o
 
 
+CMakeFiles/PIRM.elf.dir/User/Source/led.c.o: CMakeFiles/PIRM.elf.dir/flags.make
+CMakeFiles/PIRM.elf.dir/User/Source/led.c.o: ../User/Source/led.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/PIRM.elf.dir/User/Source/led.c.o"
+	arm-none-eabi-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/PIRM.elf.dir/User/Source/led.c.o   -c /home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/User/Source/led.c
+
+CMakeFiles/PIRM.elf.dir/User/Source/led.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/PIRM.elf.dir/User/Source/led.c.i"
+	arm-none-eabi-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/User/Source/led.c > CMakeFiles/PIRM.elf.dir/User/Source/led.c.i
+
+CMakeFiles/PIRM.elf.dir/User/Source/led.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/PIRM.elf.dir/User/Source/led.c.s"
+	arm-none-eabi-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/User/Source/led.c -o CMakeFiles/PIRM.elf.dir/User/Source/led.c.s
+
+CMakeFiles/PIRM.elf.dir/User/Source/led.c.o.requires:
+
+.PHONY : CMakeFiles/PIRM.elf.dir/User/Source/led.c.o.requires
+
+CMakeFiles/PIRM.elf.dir/User/Source/led.c.o.provides: CMakeFiles/PIRM.elf.dir/User/Source/led.c.o.requires
+	$(MAKE) -f CMakeFiles/PIRM.elf.dir/build.make CMakeFiles/PIRM.elf.dir/User/Source/led.c.o.provides.build
+.PHONY : CMakeFiles/PIRM.elf.dir/User/Source/led.c.o.provides
+
+CMakeFiles/PIRM.elf.dir/User/Source/led.c.o.provides.build: CMakeFiles/PIRM.elf.dir/User/Source/led.c.o
+
+
 CMakeFiles/PIRM.elf.dir/User/Source/main.c.o: CMakeFiles/PIRM.elf.dir/flags.make
 CMakeFiles/PIRM.elf.dir/User/Source/main.c.o: ../User/Source/main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/PIRM.elf.dir/User/Source/main.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/PIRM.elf.dir/User/Source/main.c.o"
 	arm-none-eabi-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/PIRM.elf.dir/User/Source/main.c.o   -c /home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/User/Source/main.c
 
 CMakeFiles/PIRM.elf.dir/User/Source/main.c.i: cmake_force
@@ -131,7 +155,7 @@ CMakeFiles/PIRM.elf.dir/User/Source/main.c.o.provides.build: CMakeFiles/PIRM.elf
 
 CMakeFiles/PIRM.elf.dir/User/Source/portevent.c.o: CMakeFiles/PIRM.elf.dir/flags.make
 CMakeFiles/PIRM.elf.dir/User/Source/portevent.c.o: ../User/Source/portevent.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/PIRM.elf.dir/User/Source/portevent.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/PIRM.elf.dir/User/Source/portevent.c.o"
 	arm-none-eabi-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/PIRM.elf.dir/User/Source/portevent.c.o   -c /home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/User/Source/portevent.c
 
 CMakeFiles/PIRM.elf.dir/User/Source/portevent.c.i: cmake_force
@@ -155,7 +179,7 @@ CMakeFiles/PIRM.elf.dir/User/Source/portevent.c.o.provides.build: CMakeFiles/PIR
 
 CMakeFiles/PIRM.elf.dir/User/Source/portfunction.c.o: CMakeFiles/PIRM.elf.dir/flags.make
 CMakeFiles/PIRM.elf.dir/User/Source/portfunction.c.o: ../User/Source/portfunction.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/PIRM.elf.dir/User/Source/portfunction.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/PIRM.elf.dir/User/Source/portfunction.c.o"
 	arm-none-eabi-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/PIRM.elf.dir/User/Source/portfunction.c.o   -c /home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/User/Source/portfunction.c
 
 CMakeFiles/PIRM.elf.dir/User/Source/portfunction.c.i: cmake_force
@@ -179,7 +203,7 @@ CMakeFiles/PIRM.elf.dir/User/Source/portfunction.c.o.provides.build: CMakeFiles/
 
 CMakeFiles/PIRM.elf.dir/User/Source/portserial.c.o: CMakeFiles/PIRM.elf.dir/flags.make
 CMakeFiles/PIRM.elf.dir/User/Source/portserial.c.o: ../User/Source/portserial.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/PIRM.elf.dir/User/Source/portserial.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/PIRM.elf.dir/User/Source/portserial.c.o"
 	arm-none-eabi-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/PIRM.elf.dir/User/Source/portserial.c.o   -c /home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/User/Source/portserial.c
 
 CMakeFiles/PIRM.elf.dir/User/Source/portserial.c.i: cmake_force
@@ -203,7 +227,7 @@ CMakeFiles/PIRM.elf.dir/User/Source/portserial.c.o.provides.build: CMakeFiles/PI
 
 CMakeFiles/PIRM.elf.dir/User/Source/porttimer.c.o: CMakeFiles/PIRM.elf.dir/flags.make
 CMakeFiles/PIRM.elf.dir/User/Source/porttimer.c.o: ../User/Source/porttimer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/PIRM.elf.dir/User/Source/porttimer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/PIRM.elf.dir/User/Source/porttimer.c.o"
 	arm-none-eabi-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/PIRM.elf.dir/User/Source/porttimer.c.o   -c /home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/User/Source/porttimer.c
 
 CMakeFiles/PIRM.elf.dir/User/Source/porttimer.c.i: cmake_force
@@ -227,7 +251,7 @@ CMakeFiles/PIRM.elf.dir/User/Source/porttimer.c.o.provides.build: CMakeFiles/PIR
 
 CMakeFiles/PIRM.elf.dir/User/Source/stm32f4xx_it.c.o: CMakeFiles/PIRM.elf.dir/flags.make
 CMakeFiles/PIRM.elf.dir/User/Source/stm32f4xx_it.c.o: ../User/Source/stm32f4xx_it.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/PIRM.elf.dir/User/Source/stm32f4xx_it.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/PIRM.elf.dir/User/Source/stm32f4xx_it.c.o"
 	arm-none-eabi-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/PIRM.elf.dir/User/Source/stm32f4xx_it.c.o   -c /home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/User/Source/stm32f4xx_it.c
 
 CMakeFiles/PIRM.elf.dir/User/Source/stm32f4xx_it.c.i: cmake_force
@@ -251,7 +275,7 @@ CMakeFiles/PIRM.elf.dir/User/Source/stm32f4xx_it.c.o.provides.build: CMakeFiles/
 
 CMakeFiles/PIRM.elf.dir/User/Source/usart.c.o: CMakeFiles/PIRM.elf.dir/flags.make
 CMakeFiles/PIRM.elf.dir/User/Source/usart.c.o: ../User/Source/usart.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/PIRM.elf.dir/User/Source/usart.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/PIRM.elf.dir/User/Source/usart.c.o"
 	arm-none-eabi-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/PIRM.elf.dir/User/Source/usart.c.o   -c /home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/User/Source/usart.c
 
 CMakeFiles/PIRM.elf.dir/User/Source/usart.c.i: cmake_force
@@ -275,7 +299,7 @@ CMakeFiles/PIRM.elf.dir/User/Source/usart.c.o.provides.build: CMakeFiles/PIRM.el
 
 CMakeFiles/PIRM.elf.dir/Drivers/CMSIS/Device/Source/system_stm32f4xx.c.o: CMakeFiles/PIRM.elf.dir/flags.make
 CMakeFiles/PIRM.elf.dir/Drivers/CMSIS/Device/Source/system_stm32f4xx.c.o: ../Drivers/CMSIS/Device/Source/system_stm32f4xx.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/PIRM.elf.dir/Drivers/CMSIS/Device/Source/system_stm32f4xx.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/PIRM.elf.dir/Drivers/CMSIS/Device/Source/system_stm32f4xx.c.o"
 	arm-none-eabi-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/PIRM.elf.dir/Drivers/CMSIS/Device/Source/system_stm32f4xx.c.o   -c /home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/Drivers/CMSIS/Device/Source/system_stm32f4xx.c
 
 CMakeFiles/PIRM.elf.dir/Drivers/CMSIS/Device/Source/system_stm32f4xx.c.i: cmake_force
@@ -299,7 +323,7 @@ CMakeFiles/PIRM.elf.dir/Drivers/CMSIS/Device/Source/system_stm32f4xx.c.o.provide
 
 CMakeFiles/PIRM.elf.dir/Drivers/CMSIS/Device/Source/startup/startup_stm32f40_41xxx.s.o: CMakeFiles/PIRM.elf.dir/flags.make
 CMakeFiles/PIRM.elf.dir/Drivers/CMSIS/Device/Source/startup/startup_stm32f40_41xxx.s.o: ../Drivers/CMSIS/Device/Source/startup/startup_stm32f40_41xxx.s
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building ASM object CMakeFiles/PIRM.elf.dir/Drivers/CMSIS/Device/Source/startup/startup_stm32f40_41xxx.s.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building ASM object CMakeFiles/PIRM.elf.dir/Drivers/CMSIS/Device/Source/startup/startup_stm32f40_41xxx.s.o"
 	arm-none-eabi-gcc  $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/PIRM.elf.dir/Drivers/CMSIS/Device/Source/startup/startup_stm32f40_41xxx.s.o -c /home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/Drivers/CMSIS/Device/Source/startup/startup_stm32f40_41xxx.s
 
 CMakeFiles/PIRM.elf.dir/Drivers/CMSIS/Device/Source/startup/startup_stm32f40_41xxx.s.o.requires:
@@ -317,6 +341,7 @@ CMakeFiles/PIRM.elf.dir/Drivers/CMSIS/Device/Source/startup/startup_stm32f40_41x
 PIRM_elf_OBJECTS = \
 "CMakeFiles/PIRM.elf.dir/User/Source/ad7606.c.o" \
 "CMakeFiles/PIRM.elf.dir/User/Source/dac.c.o" \
+"CMakeFiles/PIRM.elf.dir/User/Source/led.c.o" \
 "CMakeFiles/PIRM.elf.dir/User/Source/main.c.o" \
 "CMakeFiles/PIRM.elf.dir/User/Source/portevent.c.o" \
 "CMakeFiles/PIRM.elf.dir/User/Source/portfunction.c.o" \
@@ -332,6 +357,7 @@ PIRM_elf_EXTERNAL_OBJECTS =
 
 bin/PIRM.elf: CMakeFiles/PIRM.elf.dir/User/Source/ad7606.c.o
 bin/PIRM.elf: CMakeFiles/PIRM.elf.dir/User/Source/dac.c.o
+bin/PIRM.elf: CMakeFiles/PIRM.elf.dir/User/Source/led.c.o
 bin/PIRM.elf: CMakeFiles/PIRM.elf.dir/User/Source/main.c.o
 bin/PIRM.elf: CMakeFiles/PIRM.elf.dir/User/Source/portevent.c.o
 bin/PIRM.elf: CMakeFiles/PIRM.elf.dir/User/Source/portfunction.c.o
@@ -346,7 +372,7 @@ bin/PIRM.elf: lib/libSTM32F4xx_StdPeriph_Driver.a
 bin/PIRM.elf: lib/libSTM32F4xx_FreeRTOS.a
 bin/PIRM.elf: lib/libSTM32F4xx_Modbus.a
 bin/PIRM.elf: CMakeFiles/PIRM.elf.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking C executable bin/PIRM.elf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wangxian/Code/STM32/STM32F4/STM32F405RGT6/PIRM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking C executable bin/PIRM.elf"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/PIRM.elf.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -356,6 +382,7 @@ CMakeFiles/PIRM.elf.dir/build: bin/PIRM.elf
 
 CMakeFiles/PIRM.elf.dir/requires: CMakeFiles/PIRM.elf.dir/User/Source/ad7606.c.o.requires
 CMakeFiles/PIRM.elf.dir/requires: CMakeFiles/PIRM.elf.dir/User/Source/dac.c.o.requires
+CMakeFiles/PIRM.elf.dir/requires: CMakeFiles/PIRM.elf.dir/User/Source/led.c.o.requires
 CMakeFiles/PIRM.elf.dir/requires: CMakeFiles/PIRM.elf.dir/User/Source/main.c.o.requires
 CMakeFiles/PIRM.elf.dir/requires: CMakeFiles/PIRM.elf.dir/User/Source/portevent.c.o.requires
 CMakeFiles/PIRM.elf.dir/requires: CMakeFiles/PIRM.elf.dir/User/Source/portfunction.c.o.requires
