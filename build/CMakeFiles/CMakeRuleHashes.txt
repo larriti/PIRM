@@ -1,6 +1,0 @@
-# Hashes of file build rules.
-96c196751792542ee338751f8f53057d CMakeFiles/PIRM.bin
-794aee93dfa8df237a114fba32d2d1b2 CMakeFiles/PIRM.hex
-cc7656321cbd45a32e401304494e01be CMakeFiles/clean-all
-45379d3e46158a617656d874fa37840e CMakeFiles/flash
-242becf3bd58ffaed06bd8b06b1a1aed CMakeFiles/size
