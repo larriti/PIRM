@@ -45,14 +45,23 @@
 #include "portfunction.h"
 
 /* Private typedef -----------------------------------------------------------*/
+typedef union {
+	float org;
+	uint8_t des[4];
+}ftc_union;
+ftc_union res_union;
+ftc_union vol_union;
+
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 #define CONTACT_RES			3			// 接触电阻3mR
 
 /* Private variables ---------------------------------------------------------*/
 AD7606_CHx_Vpp_Typedef AD7606_CHx_Vpp;
+uint8_t WWDG_CNT = 0x7F;
 
 /* Private function prototypes -----------------------------------------------*/
+static void WWDG_Init(uint8_t tr, uint8_t wr, uint32_t fprer);
 static void vLEDTask(void *pvParameters);
 static void vMBTask(void *pvParameters);
 static void vAD7606_Sample_Task(void *pvParameters);
@@ -69,12 +78,14 @@ int main(void)
 {
 	// 中断组选择
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
+	// 配置窗口看门狗，超时时间为t=1/42000000*4096*8*(0x7F-0x3F)=49.93ms
+	WWDG_Init(0x7F, 0x7F, WWDG_Prescaler_8);
 	// DAC 初始化配置
 	DAC_Init_Config();
 	// 串口1配置
 	USART1_Config();
 
-    /* Create led task */
+    /* Create task */
 	xTaskCreate(vAD7606_Sample_Task, "AD7606 sample task", configMINIMAL_STACK_SIZE, NULL, 1, NULL);
 	xTaskCreate(vLEDTask, "LED task", configMINIMAL_STACK_SIZE, NULL, 2, NULL);
     xTaskCreate(vMBTask, "Modbus task", configMINIMAL_STACK_SIZE, NULL, 3, NULL);
@@ -205,7 +216,7 @@ static void vAD7606_Handle_Task(void *pvParameters)
 			else
 			{
 				// 20阶移动平均滤波
-				AD7606_CHx_Vpp.AD7606_CH1_Vpp[Vpp_index] = ch1_max-ch1_min;
+				AD7606_CHx_Vpp.AD7606_CH1_Vpp[Vpp_index] = ch1_max-ch1_min;		// 最新数据放到数组最后
 				AD7606_CHx_Vpp.AD7606_CH2_Vpp[Vpp_index] = ch2_max-ch2_min;
 				ch1_sum = 0;
 				ch2_sum = 0;
@@ -225,12 +236,48 @@ static void vAD7606_Handle_Task(void *pvParameters)
 				}
 				// 计算出电池内组
 				power_res = ch1_avg/ch2_avg*AD7606_STANDARD_RES;
+				// 减去接触电阻
+				power_res = power_res - CONTACT_RES;
 				// 计算出电池电压
 				power_volatage = AD7606_CHx.AD7606_CH4*(AD7606_POWER_R18+AD7606_POWER_R17)/AD7606_POWER_R18;
-				printf("Res=%.3fmR, Vp=%.3fV\r\n", power_res-CONTACT_RES, power_volatage);
+				// 浮点拆分成4个字节
+				res_union.org = power_res;
+				vol_union.org = power_volatage;
+				usRegHoldingBuf[0] = res_union.des[3]*256+res_union.des[2];
+				usRegHoldingBuf[1] = res_union.des[1]*256+res_union.des[0];
+				usRegHoldingBuf[2] = vol_union.des[3]*256+vol_union.des[2];
+				usRegHoldingBuf[3] = vol_union.des[1]*256+vol_union.des[0];
+				// printf("Res=%.3fmR, Vp=%.3fV\r\n", power_res, power_volatage);
 			}
 		}
 	}
+}
+
+static void WWDG_Init(uint8_t tr, uint8_t wr, uint32_t fprer)
+{
+	NVIC_InitTypeDef NVIC_InitStruct;
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_WWDG, ENABLE);
+
+	WWDG_CNT = tr&WWDG_CNT;
+	WWDG_SetPrescaler(fprer);
+	WWDG_SetCounter(WWDG_CNT);
+	WWDG_SetWindowValue(wr);
+	WWDG_Enable(WWDG_CNT);
+
+	NVIC_InitStruct.NVIC_IRQChannel = WWDG_IRQn;
+	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 0;
+	NVIC_InitStruct.NVIC_IRQChannelSubPriority = 0;
+	NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStruct);
+
+	WWDG_ClearFlag();
+	WWDG_EnableIT();
+}
+
+void WWDG_IRQHandler(void)
+{
+	WWDG_SetCounter(WWDG_CNT);
+	WWDG_ClearFlag();
 }
 
 #ifdef  USE_FULL_ASSERT
