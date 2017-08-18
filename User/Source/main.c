@@ -54,7 +54,8 @@ ftc_union vol_union;
 
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
-#define CONTACT_RES			3			// 接触电阻3mR
+#define CONTACT_RES			3.0			// 接触电阻3mR
+#define SCALE 					31.0/36.0
 
 /* Private variables ---------------------------------------------------------*/
 AD7606_CHx_Vpp_Typedef AD7606_CHx_Vpp;
@@ -85,15 +86,15 @@ int main(void)
 	// 串口1配置
 	USART1_Config();
 
-    /* Create task */
+  /* Create task */
 	xTaskCreate(vAD7606_Sample_Task, "AD7606 sample task", configMINIMAL_STACK_SIZE, NULL, 1, NULL);
 	xTaskCreate(vLEDTask, "LED task", configMINIMAL_STACK_SIZE, NULL, 2, NULL);
-    xTaskCreate(vMBTask, "Modbus task", configMINIMAL_STACK_SIZE, NULL, 3, NULL);
+  xTaskCreate(vMBTask, "Modbus task", configMINIMAL_STACK_SIZE, NULL, 3, NULL);
 	// 因为有printf,所以栈大小要比较大
 	xTaskCreate(vAD7606_Handle_Task, "AD7606 handle task", 256, NULL, 4, NULL);
 
-    /* Start task scheduler */
-    vTaskStartScheduler();
+	/* Start task scheduler */
+	vTaskStartScheduler();
 
 	/* Infinite loop */
 	while (1)
@@ -113,20 +114,20 @@ static void vLEDTask(void *pvParameters)
 
 static void vMBTask( void *pvParameters )
 {
-    /* Select either ASCII or RTU Mode. */
-    eMBInit( MB_RTU, 0x01, 0, 9600, MB_PAR_NONE );
-    /* Enable the Modbus Protocol Stack. */
-    eMBEnable();
-    for( ;; )
-    {
-        /* Call the main polling loop of the Modbus protocol stack. Internally
-         * the polling loop waits for a new event by calling the port
-         * dependent function xMBPortEventGet(  ). In the FreeRTOS port the
-         * event layer is built with queues.
-         */
-        ( void )eMBPoll();
-        vTaskDelay(50);
-    }
+	/* Select either ASCII or RTU Mode. */
+	eMBInit( MB_RTU, 0x02, 0, 9600, MB_PAR_NONE );
+	/* Enable the Modbus Protocol Stack. */
+	eMBEnable();
+	for( ;; )
+	{
+	    /* Call the main polling loop of the Modbus protocol stack. Internally
+	     * the polling loop waits for a new event by calling the port
+	     * dependent function xMBPortEventGet(  ). In the FreeRTOS port the
+	     * event layer is built with queues.
+	     */
+	    ( void )eMBPoll();
+	    vTaskDelay(50);
+	}
 }
 
 static void vAD7606_Sample_Task(void *pvParameters)
@@ -237,7 +238,7 @@ static void vAD7606_Handle_Task(void *pvParameters)
 				// 计算出电池内组
 				power_res = ch1_avg/ch2_avg*AD7606_STANDARD_RES;
 				// 减去接触电阻
-				power_res = power_res - CONTACT_RES;
+				power_res = power_res*SCALE - CONTACT_RES;
 				// 计算出电池电压
 				power_volatage = AD7606_CHx.AD7606_CH4*(AD7606_POWER_R18+AD7606_POWER_R17)/AD7606_POWER_R18;
 				// 浮点拆分成4个字节
